@@ -40,7 +40,8 @@ def check_genre_name(genre: str) -> str:
     return genre_title
 
 
-def find_genre_id(genre: str):
+def find_genre_id(genre: str) -> int:
+    genre_id = 0
     genre_list = Genre()
     genre_list = genre_list.movie_list()
     for gl in genre_list:
