@@ -167,3 +167,7 @@ Procfile
 README 2.md 
 *.txt
 *.sh
+*.githooks
+*.github
+*.flake8
+*.ini
