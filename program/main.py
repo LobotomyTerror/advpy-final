@@ -1,5 +1,5 @@
 import sys
-import requests
+import requests  # type: ignore
 import config
 from tmdbv3api import TMDb
 from tmdbv3api import Genre
@@ -45,7 +45,12 @@ def get_movies_by_genre(genre: str) -> None:
             "accept": "application/json",
             "Authorization": config.TMDB_AUTH_KEY
         }
-        response = requests.get(url, headers=headers, params=params, timeout=1000)
+        response = requests.get(
+            url,
+            headers=headers,
+            params=params,
+            timeout=1000
+            )
         movies = response.json()
         for m in movies['results']:
             movie_list.append(m)
