@@ -1,36 +1,13 @@
 import sys
-# import random
+import requests
+import config
 from tmdbv3api import TMDb
-# from tmdbv3api import Movie
-from tmdbv3api import Discover
 from tmdbv3api import Genre
-
-
-# Movie genres:
-
-# [ { id: 28, name: 'Action' },
-# { id: 12, name: 'Adventure' },
-# { id: 16, name: 'Animation' },
-# { id: 35, name: 'Comedy' },
-# { id: 80, name: 'Crime' },
-# { id: 99, name: 'Documentary' },
-# { id: 18, name: 'Drama' },
-# { id: 10751, name: 'Family' },
-# { id: 14, name: 'Fantasy' },
-# { id: 36, name: 'History' },
-# { id: 27, name: 'Horror' },
-# { id: 10402, name: 'Music' },
-# { id: 9648, name: 'Mystery' },
-# { id: 10749, name: 'Romance' },
-# { id: 878, name: 'Science Fiction' },
-# { id: 10770, name: 'TV Movie' },
-# { id: 53, name: 'Thriller' },
-# { id: 10752, name: 'War' },
-# { id: 37, name: 'Western' }, ]
+import database as db
 
 
 tmdb = TMDb()
-tmdb.api_key = 'ddc68a76526100939a2f7c62b4f6b061'
+tmdb.api_key = config.TMDB_API_KEY
 tmdb.language = 'en'
 tmdb.debug = True
 
@@ -52,16 +29,27 @@ def find_genre_id(genre: str) -> int:
 
 
 def get_movies_by_genre(genre: str) -> None:
-    discover = Discover()
     genre_id = find_genre_id(genre)
-
     if genre_id != 0:
-        movies = discover.discover_movies({
-                'with_genres': f"{genre_id}",
-                'sort_by': 'popularity.desc'
-            })
-        for m in movies:
-            print(m)
+        movie_list = []
+        url = "https://api.themoviedb.org/3/discover/movie?"
+        params = {
+            "include_adult": "false",
+            "include_video": "false",
+            "language": "en-US",
+            "page": "1",
+            "sort_by": "popularity.desc",
+            "with_genres": str(genre_id)
+        }
+        headers = {
+            "accept": "application/json",
+            "Authorization": config.TMDB_AUTH_KEY
+        }
+        response = requests.get(url, headers=headers, params=params, timeout=1000)
+        movies = response.json()
+        for m in movies['results']:
+            movie_list.append(m)
+        db.insert_to_mongo(movie_list)
 
 
 def get_input() -> str:

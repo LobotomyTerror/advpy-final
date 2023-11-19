@@ -171,3 +171,5 @@ README 2.md
 *.github
 *.flake8
 *.ini
+*.pem
+config.py
