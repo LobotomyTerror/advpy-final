@@ -1,0 +1,66 @@
+body, html {
+    height: 100%;
+    margin: 0;
+}
+.background {
+    background: url(../images/background.jpg);
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.55;
+    position: relative;
+}
+.cont {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    top: 45%;
+    left: 50%;
+    padding: 20px;
+}
+form {
+    display: flex;
+    flex-direction: row;
+}
+/*
+input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    width: 900px;
+    box-sizing: border-box;
+    text-align: center;
+}
+input[type="submit"] {
+    padding: 10px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    width: 50px;
+}
+*/
+.search-field {
+    width: 900px;
+    padding: 10px 35px 10px 15px;
+    border: none;
+    border-radius: 100px;
+    outline: none;
+}
+.search-button {
+    background: transparent;
+    border: none;
+    outline: none;
+    margin-left: -33px;
+}
+.search-button img {
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+}
+.text {
+    text-align: center;
+    color: white;
+    text-shadow: 3px 3px 4px black;
+    padding: 10px;
+}
