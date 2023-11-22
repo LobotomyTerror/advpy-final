@@ -19,7 +19,7 @@ def search() -> Any:
 
 
 @app.route('/search_results')
-def search_results():
+def search_results() -> Any:
     search_query = request.args.get('query', '')
     return render_template('search_results.html', query=search_query)
 
