@@ -22,7 +22,11 @@ def search() -> Any:
 def search_results() -> Any:
     search_query = request.args.get('query', '')
     movie_ids = main.get_movies_by_genre(search_query)
-    return render_template('search_results.html', query=search_query, results=movie_ids)
+    return render_template(
+        'search_results.html',
+        query=search_query,
+        results=movie_ids
+        )
 
 
 if __name__ == "__main__":
