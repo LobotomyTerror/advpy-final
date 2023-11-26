@@ -29,6 +29,10 @@ def find_genre_id(genre: str) -> int:
     return 0
 
 
+def remove_from_db() -> Any:
+    db.delete_db()
+
+
 def get_movies_by_genre(genre: str) -> Any:
     genre = check_genre_title(genre)
     genre_id = find_genre_id(genre)

@@ -29,5 +29,11 @@ def search_results() -> Any:
         )
 
 
+@app.route('/clear_db', methods=['POST'])
+def clear_db() -> Any:
+    main.remove_from_db()
+    return redirect(url_for('index'))
+
+
 if __name__ == "__main__":
     app.run(debug=True)
