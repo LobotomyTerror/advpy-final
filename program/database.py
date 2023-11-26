@@ -1,3 +1,4 @@
+from typing import Any
 from pymongo.mongo_client import MongoClient
 import certifi
 import config
@@ -7,7 +8,7 @@ def create_mongo_client(uri: str) -> MongoClient:  # type: ignore
     return MongoClient(uri, tlsCAFile=certifi.where())
 
 
-def insert_to_mongo(movie_list: list) -> None:  # type: ignore
+def insert_to_mongo(movie_list: list) -> Any:  # type: ignore
     uri = (
         "mongodb+srv://" + config.MONGODB_USRNM +
         ":" + config.MONGODB_PASS +
@@ -18,5 +19,6 @@ def insert_to_mongo(movie_list: list) -> None:  # type: ignore
 
     db = client.movie_data
     movie = db.movie
-    movie.insert_many(movie_list)
-    movie.delete_many({})
+    return_ids = movie.insert_many(movie_list)
+    return return_ids.inserted_ids
+    # movie.delete_many({})

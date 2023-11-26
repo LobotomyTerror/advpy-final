@@ -3,7 +3,7 @@ body, html {
     margin: 0;
 }
 .background {
-    background: url(../images/background.jpg);
+    background: url(background\ copy.jpg);
     height: 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -23,29 +23,13 @@ form {
     display: flex;
     flex-direction: row;
 }
-/*
-input[type="text"] {
-    flex: 1;
-    padding: 10px;
-    width: 900px;
-    box-sizing: border-box;
-    text-align: center;
-}
-input[type="submit"] {
-    padding: 10px;
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    width: 50px;
-}
-*/
 .search-field {
     width: 900px;
     padding: 10px 35px 10px 15px;
     border: none;
     border-radius: 100px;
     outline: none;
+    box-shadow: 3px 3px 4px black;
 }
 .search-button {
     background: transparent;
@@ -60,7 +44,7 @@ input[type="submit"] {
 }
 .text {
     text-align: center;
-    color: white;
+    color: aliceblue;
     text-shadow: 3px 3px 4px black;
     padding: 10px;
 }

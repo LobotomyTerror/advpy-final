@@ -1,4 +1,5 @@
 import sys
+from typing import Any
 import requests  # type: ignore
 import config
 from tmdbv3api import TMDb
@@ -12,7 +13,7 @@ tmdb.language = 'en'
 tmdb.debug = True
 
 
-def check_genre_name(genre: str) -> str:
+def check_genre_title(genre: str) -> str:
     genre_title = genre.title()
     return genre_title
 
@@ -28,7 +29,8 @@ def find_genre_id(genre: str) -> int:
     return 0
 
 
-def get_movies_by_genre(genre: str) -> None:
+def get_movies_by_genre(genre: str) -> Any:
+    genre = check_genre_title(genre)
     genre_id = find_genre_id(genre)
     if genre_id != 0:
         movie_list = []
@@ -54,7 +56,8 @@ def get_movies_by_genre(genre: str) -> None:
         movies = response.json()
         for m in movies['results']:
             movie_list.append(m)
-        db.insert_to_mongo(movie_list)
+        ids = db.insert_to_mongo(movie_list)
+        return ids
 
 
 def get_input() -> str:
@@ -66,7 +69,7 @@ def get_input() -> str:
 
 def getMovies() -> None:
     genre_in = get_input()
-    genre = check_genre_name(genre_in)
+    genre = check_genre_title(genre_in)
     get_movies_by_genre(genre)
 
 

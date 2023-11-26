@@ -1,7 +1,7 @@
 from typing import Any
+import main
 from flask import Flask, render_template, request, redirect, url_for
 
-# add request and redirect to flas
 app = Flask(__name__)
 
 
@@ -21,7 +21,8 @@ def search() -> Any:
 @app.route('/search_results')
 def search_results() -> Any:
     search_query = request.args.get('query', '')
-    return render_template('search_results.html', query=search_query)
+    movie_ids = main.get_movies_by_genre(search_query)
+    return render_template('search_results.html', query=search_query, results=movie_ids)
 
 
 if __name__ == "__main__":
