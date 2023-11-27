@@ -38,9 +38,9 @@ def delete_db() -> Any:
     movie.delete_many({})
 
 
-def get_documents(movie_ids: list) -> Any:
+def get_documents(movie_ids: list) -> Any:  # type: ignore
     uri = get_uri()
-    client: MongoClient = create_mongo_client(uri)
+    client: MongoClient = create_mongo_client(uri)  # type: ignore
     db = client.movie_data
     movie_collection = db.movie
 
