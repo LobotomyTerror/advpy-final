@@ -24,9 +24,10 @@ def insert_to_mongo(movie_list: list) -> Any:  # type: ignore
 
     db = client.movie_data
     movie = db.movie
+    for movie_data in movie_list:
+        movie_data['_id'] = movie_data.pop('id')
     return_ids = movie.insert_many(movie_list)
     return return_ids.inserted_ids
-    # movie.delete_many({})
 
 
 def delete_db() -> Any:
@@ -35,3 +36,14 @@ def delete_db() -> Any:
     db = client.movie_data
     movie = db.movie
     movie.delete_many({})
+
+
+def get_documents(movie_ids: list) -> Any:
+    uri = get_uri()
+    client: MongoClient = create_mongo_client(uri)
+    db = client.movie_data
+    movie_collection = db.movie
+
+    result = movie_collection.find({'_id': {'$in': movie_ids}})
+    movies = list(result)
+    return movies

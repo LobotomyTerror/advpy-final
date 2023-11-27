@@ -22,10 +22,12 @@ def search() -> Any:
 def search_results() -> Any:
     search_query = request.args.get('query', '')
     movie_ids = main.get_movies_by_genre(search_query)
+    movie_data = main.return_movie_data(movie_ids)
+
     return render_template(
         'search_results.html',
         query=search_query,
-        results=movie_ids
+        results=movie_data
         )
 
 

@@ -64,6 +64,11 @@ def get_movies_by_genre(genre: str) -> Any:
         return ids
 
 
+def return_movie_data(movie_ids: list) -> Any:  # type: ignore
+    movie_collection = db.get_documents(movie_ids)
+    return movie_collection
+
+
 def get_input() -> str:
     sys.stdout.write("Enter a genre to search for: ")
     line = sys.stdin.readline()
