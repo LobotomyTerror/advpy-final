@@ -24,8 +24,8 @@ def insert_to_mongo(movie_list: list) -> Any:  # type: ignore
 
     db = client.movie_data
     movie = db.movie
-    #for movie_data in movie_list:
-        #movie_data['_id'] = movie_data.pop('id')
+    # for movie_data in movie_list:
+    # movie_data['_id'] = movie_data.pop('id')
     return_ids = movie.insert_many(movie_list)
     return return_ids.inserted_ids
 
