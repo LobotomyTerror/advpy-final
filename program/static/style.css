@@ -64,7 +64,6 @@ form {
     flex-direction: column;
 }
 .movie_tiles div.gallery {
-    border: 5px solid black;
     flex: 1;
 }
 .movie_tiles div.gallery img {
@@ -72,9 +71,10 @@ form {
     height: auto;
 }
 .movie_tiles div.desc {
-    text-align: left;
+    text-align: center;
+    color: black;
     padding: 10px;
-    background-color: #0f0f0f;
+    background-color: white;
     flex: 1;
 }
 .movie_tiles div.desc span {
