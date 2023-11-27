@@ -8,11 +8,19 @@
     </head>
     <body>
         <div><h3>Search Results for {{ query|capitalize }}</h3></div>
-        <div>
+        <div class="movie_tiles">
             {% if results %}
                 <ul>
                     {% for movies in results %}
-                        <li>{{ movies }}</li>
+                        <li>
+                            <div class="gallery">
+                                <img src="https://image.tmdb.org/t/p/w185/{{movies.poster_path}}" alt="Movie Poster" width="400" height="600">
+                                <div class="desc">
+                                    <span>{{ movies.title }}</span>
+                                    <span>{{ movies.Rated }}</span>
+                                </div>
+                            </div>
+                        </li>
                     {% endfor %}
                 </ul>
             {% else %}

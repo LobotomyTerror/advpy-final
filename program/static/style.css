@@ -48,3 +48,39 @@ form {
     text-shadow: 3px 3px 4px black;
     padding: 10px;
 }
+.movie_tiles {
+    color: black;
+}
+.movie_tiles ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+.movie_tiles li {
+    width: 150px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.movie_tiles div.gallery {
+    border: 5px solid black;
+    flex: 1;
+}
+.movie_tiles div.gallery img {
+    width: 100%;
+    height: auto;
+}
+.movie_tiles div.desc {
+    text-align: left;
+    padding: 10px;
+    background-color: #0f0f0f;
+    flex: 1;
+}
+.movie_tiles div.desc span {
+    display: block;
+    overflow-wrap: break-word;
+}
+* {
+    box-sizing: border-box;
+}
