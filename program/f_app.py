@@ -1,6 +1,6 @@
 from typing import Any
-import main
 from flask import Flask, render_template, request, redirect, url_for
+from . import main
 
 app = Flask(__name__)
 

@@ -1,10 +1,10 @@
 import sys
 from typing import Any
 import requests  # type: ignore
-import config
 from tmdbv3api import TMDb
 from tmdbv3api import Genre
-import database as db
+from . import config
+from . import database as db
 
 
 tmdb = TMDb()

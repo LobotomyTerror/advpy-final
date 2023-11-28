@@ -1,0 +1,15 @@
+pytest
+pymongo[srv]
+mypy
+hypothesis
+flake8
+autopep8
+lxml
+requests
+Flask
+types-requests
+vcrpy
+pytest-mock
+Flask-WTF
+tmdbv3api
+gunicorn

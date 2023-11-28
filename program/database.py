@@ -1,7 +1,7 @@
 from typing import Any
 from pymongo.mongo_client import MongoClient
 import certifi
-import config
+from . import config
 
 
 def get_uri() -> Any:
