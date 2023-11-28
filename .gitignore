@@ -163,7 +163,6 @@ app/
 Dockerfile
 LICENSE
 Makefile
-Procfile
 README 2.md 
 *.txt
 *.sh
