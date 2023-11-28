@@ -171,4 +171,3 @@ ci-cd-requirements.txt
 *.flake8
 *.ini
 *.pem
-config.py
