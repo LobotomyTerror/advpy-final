@@ -164,7 +164,7 @@ Dockerfile
 LICENSE
 Makefile
 README 2.md 
-*.txt
+ci-cd-requirements.txt
 *.sh
 *.githooks
 *.github
