@@ -5,6 +5,7 @@ from pymongo.mongo_client import MongoClient
 import certifi
 load_dotenv()
 
+
 def get_uri() -> Any:
     mongodb_username = os.getenv('MONGODB_USRNM')
     mongodb_pass = os.getenv('MONGODB_PASS')
