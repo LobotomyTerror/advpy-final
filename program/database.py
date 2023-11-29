@@ -10,7 +10,7 @@ def get_uri() -> Any:
     mongodb_username = os.getenv('MONGODB_USRNM')
     mongodb_pass = os.getenv('MONGODB_PASS')
     uri = (
-        "mongodb+srv://" + mongodb_username +
+        "mongodb+srv://" + mongodb_username +  # type: ignore
         ":" + mongodb_pass +
         "@cluster0.zybp0x4.mongodb.net/?"
         "retryWrites=true&w=majority"
