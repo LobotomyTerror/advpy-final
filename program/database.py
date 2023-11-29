@@ -1,13 +1,16 @@
+import os
 from typing import Any
+from dotenv import load_dotenv
 from pymongo.mongo_client import MongoClient
 import certifi
-from . import config
-
+load_dotenv()
 
 def get_uri() -> Any:
+    mongodb_username = os.getenv('MONGODB_USRNM')
+    mongodb_pass = os.getenv('MONGODB_PASS')
     uri = (
-        "mongodb+srv://" + config.MONGODB_USRNM +
-        ":" + config.MONGODB_PASS +
+        "mongodb+srv://" + mongodb_username +
+        ":" + mongodb_pass +
         "@cluster0.zybp0x4.mongodb.net/?"
         "retryWrites=true&w=majority"
     )

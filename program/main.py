@@ -1,14 +1,16 @@
 import sys
+import os
 from typing import Any
+from dotenv import load_dotenv
 import requests  # type: ignore
 from tmdbv3api import TMDb
 from tmdbv3api import Genre
-from . import config
 from . import database as db
 
-
+load_dotenv()
+tmdb_api_key = os.getenv('TMDB_API_KEY')
 tmdb = TMDb()
-tmdb.api_key = config.TMDB_API_KEY
+tmdb.api_key = tmdb_api_key
 tmdb.language = 'en'
 tmdb.debug = True
 
@@ -38,6 +40,7 @@ def get_movies_by_genre(genre: str) -> Any:
     genre_id = find_genre_id(genre)
     if genre_id != 0:
         movie_list = []
+        tmdb_auth_key = os.getenv('TMDB_AUTH_KEY')
         url = "https://api.themoviedb.org/3/discover/movie?"
         params = {
             "include_adult": "false",
@@ -49,7 +52,7 @@ def get_movies_by_genre(genre: str) -> Any:
         }
         headers = {
             "accept": "application/json",
-            "Authorization": config.TMDB_AUTH_KEY
+            "Authorization": tmdb_auth_key
         }
         response = requests.get(
             url,
@@ -62,6 +65,7 @@ def get_movies_by_genre(genre: str) -> Any:
             movie_list.append(m)
         ids = db.insert_to_mongo(movie_list)
         return ids
+    return genre_id
 
 
 def return_movie_data(movie_ids: list) -> Any:  # type: ignore

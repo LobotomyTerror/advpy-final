@@ -22,13 +22,15 @@ def search() -> Any:
 def search_results() -> Any:
     search_query = request.args.get('query', '')
     movie_ids = main.get_movies_by_genre(search_query)
-    movie_data = main.return_movie_data(movie_ids)
+    if movie_ids != 0:
+        movie_data = main.return_movie_data(movie_ids)
 
-    return render_template(
-        'search_results.html',
-        query=search_query,
-        results=movie_data
-        )
+        return render_template(
+            'search_results.html',
+            query=search_query,
+            results=movie_data
+            )
+    return redirect(url_for('index'))
 
 
 @app.route('/clear_db', methods=['POST'])
