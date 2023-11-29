@@ -35,7 +35,7 @@ def search() -> Any:
     allows for stuff to be entered, once something is entered
     the return acts as a submit in-turn a POST. When a query is
     entered into the search bar the POST value (genre) is stored
-    into the request object and if it is a POST then we set the 
+    into the request object and if it is a POST then we set the
     search_query equal to the the value of the request.form dict at
     the given value. So search_query would be the (genre) string,
     where we then redirect the app to the 'search_results' function
@@ -55,7 +55,7 @@ def search() -> Any:
 def search_results() -> Any:
     """ When we reach this point the search_query then
     gets the query result from request object or an empty
-    string if it doesn't match (this is passed this originally 
+    string if it doesn't match (this is passed this originally
     from the previous function above where query=search_query).
     Once this happens then it runs through the main module, which
     in-turn access the mongodb database and gets all the JSON data.

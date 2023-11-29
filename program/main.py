@@ -33,7 +33,7 @@ def check_genre_title(genre: str) -> str:
     """Capitalize first character of each word
 
     Args:
-        genre (str): The genre (str) that is passed 
+        genre (str): The genre (str) that is passed
         in is just capitilized for the first char
         so is matches TMDB's setup
     Returns:
@@ -44,7 +44,7 @@ def check_genre_title(genre: str) -> str:
 
 
 def find_genre_id(genre: str) -> int:
-    """Once the genre has been capitilized this 
+    """Once the genre has been capitilized this
     function sets the genre_list to class Genre
     which in turn allows us to get the movie genre
     list. Allowing us to find the corresponding id
@@ -83,7 +83,7 @@ def get_movies_by_genre(genre: str) -> Any:
     """Checks if genre_id is an actual valid id from the
     TMDB. If so it sets the url beginning for discovering
     movies from the website. Then sets specific parameters and
-    headers for structuring the entire url - 
+    headers for structuring the entire url -
     (https://api.themoviedb.org/3/discover/
     movie?...paramstuff...headers...). Then sends a request and
     stores in the response var then making it a json structure.
@@ -138,7 +138,7 @@ def return_movie_data(movie_ids: list) -> Any:  # type: ignore
         cluster
 
     Returns:
-        Any: Returns a list of dicts with all the JSON data 
+        Any: Returns a list of dicts with all the JSON data
         that was stored in the mongodb database
     """
     movie_collection = db.get_documents(movie_ids)
@@ -147,6 +147,7 @@ def return_movie_data(movie_ids: list) -> Any:  # type: ignore
 # These functions below are not used, only for testing
 # purposes for when I was setting up the api and the
 # the connection to Mongodb.
+
 
 def get_input() -> str:
     sys.stdout.write("Enter a genre to search for: ")
