@@ -13,3 +13,4 @@ pytest-mock
 Flask-WTF
 tmdbv3api
 gunicorn
+python-dotenv
