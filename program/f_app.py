@@ -28,6 +28,15 @@ def index() -> Any:
     return render_template('index.html')
 
 
+@app.route('/redirect_search', methods=['POST'])
+def redirect_search() -> Any:
+    search_criteria = request.form['search_type']
+    if search_criteria == 'discover_movies_by_genre':
+        return render_template('movie_search.html')
+    if search_criteria == 'discover_tv_by_genre':
+        return render_template('tv_search.html')
+
+
 @app.route('/search', methods=['GET', 'POST'])
 def search() -> Any:
     """ This function waits for a POST to happen. When the
@@ -47,7 +56,11 @@ def search() -> Any:
     """
     if request.method == 'POST':
         search_query = request.form['searchInput']
-        return redirect(url_for('search_results', query=search_query))
+        type_query = request.form['search_type']
+        return redirect(
+            url_for('search_results',
+                    query=search_query,
+                    search_param=type_query))
     return redirect(url_for('index'))
 
 
@@ -68,15 +81,29 @@ def search_results() -> Any:
         Any: If condition is true then we render the search_results.
         html page. Otherwise we return to the index page.
     """
-    search_query = request.args.get('query', '')
-    movie_ids = main.get_movies_by_genre(search_query)
-    if movie_ids != 0:
-        movie_data = main.return_movie_data(movie_ids)
 
-        return render_template(
-            'search_results.html',
-            query=search_query,
-            results=movie_data
+    search_query = request.args.get('query', '')
+    type_of_search = request.args.get('search_param', '')
+
+    if type_of_search == 'movie_search':
+        movie_ids = main.search_by_genre(search_query, type_of_search)
+        if movie_ids != 0:
+            movie_data = main.return_movie_data(movie_ids)
+
+            return render_template(
+                'search_results.html',
+                query=search_query,
+                results=movie_data
+                )
+    if type_of_search == 'tv_search':
+        tv_ids = main.search_by_genre(search_query, type_of_search)
+        if tv_ids != 0:
+            tv_data = main.return_movie_data(tv_ids)
+
+            return render_template(
+                'search_results.html',
+                query=search_query,
+                results=tv_data
             )
     return redirect(url_for('index'))
 

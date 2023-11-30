@@ -22,7 +22,7 @@ def create_mongo_client(uri: str) -> MongoClient:  # type: ignore
     return MongoClient(uri, tlsCAFile=certifi.where())
 
 
-def insert_to_mongo(movie_list: list) -> Any:  # type: ignore
+def insert_to_mongo(discover_list: list) -> Any:  # type: ignore
     uri = get_uri()
     client: MongoClient = create_mongo_client(uri)  # type: ignore
 
@@ -30,7 +30,7 @@ def insert_to_mongo(movie_list: list) -> Any:  # type: ignore
     movie = db.movie
     # for movie_data in movie_list:
     # movie_data['_id'] = movie_data.pop('id')
-    return_ids = movie.insert_many(movie_list)
+    return_ids = movie.insert_many(discover_list)
     return return_ids.inserted_ids
 
 
@@ -42,12 +42,12 @@ def delete_db() -> Any:
     movie.delete_many({})
 
 
-def get_documents(movie_ids: list) -> Any:  # type: ignore
+def get_documents(discovered_ids: list) -> Any:  # type: ignore
     uri = get_uri()
     client: MongoClient = create_mongo_client(uri)  # type: ignore
     db = client.movie_data
     movie_collection = db.movie
 
-    result = movie_collection.find({'_id': {'$in': movie_ids}})
-    movies = list(result)
-    return movies
+    result = movie_collection.find({'_id': {'$in': discovered_ids}})
+    discover_list = list(result)
+    return discover_list
