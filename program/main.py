@@ -43,7 +43,7 @@ def check_genre_title(genre: str) -> str:
     return genre_title
 
 
-def find_genre_id(genre: str) -> int:
+def find_movie_genre_id(genre: str) -> int:
     """Once the genre has been capitilized this
     function sets the genre_list to class Genre
     which in turn allows us to get the movie genre
@@ -69,6 +69,16 @@ def find_genre_id(genre: str) -> int:
     return 0
 
 
+def find_tv_genre_id(genre: str) -> int:
+    genre_id = 0
+    genre_list = Genre()
+    genre_list = genre_list.tv_list()
+    for gl in genre_list:
+        if genre == gl['name']:
+            genre_id = gl['id']
+            return genre_id
+    return 0
+
 def remove_from_db() -> Any:
     """Goes to the database module where the insertion
     into the Mongodb database is conducted
@@ -79,7 +89,7 @@ def remove_from_db() -> Any:
     db.delete_db()
 
 
-def get_movies_by_genre(genre: str) -> Any:
+def search_by_genre(genre: str, type_of_search: str) -> Any:
     """Checks if genre_id is an actual valid id from the
     TMDB. If so it sets the url beginning for discovering
     movies from the website. Then sets specific parameters and
@@ -97,38 +107,68 @@ def get_movies_by_genre(genre: str) -> Any:
         a 0 to indicate there was no matching id for that genre
     """
     genre = check_genre_title(genre)
-    genre_id = find_genre_id(genre)
-    if genre_id != 0:
-        movie_list = []
-        tmdb_auth_key = os.getenv('TMDB_AUTH_KEY')
-        url = "https://api.themoviedb.org/3/discover/movie?"
-        params = {
-            "include_adult": "false",
-            "include_video": "false",
-            "language": "en-US",
-            "page": "1",
-            "sort_by": "popularity.desc",
-            "with_genres": str(genre_id)
-        }
-        headers = {
-            "accept": "application/json",
-            "Authorization": tmdb_auth_key
-        }
-        response = requests.get(
-            url,
-            headers=headers,
-            params=params,
-            timeout=1000
+    tmdb_auth_key = os.getenv('TMDB_AUTH_KEY')
+    if type_of_search == 'movie_search':
+        genre_id = find_movie_genre_id(genre)
+        if genre_id != 0:
+            movie_list = []
+            url = "https://api.themoviedb.org/3/discover/movie?"
+            params = {
+                "include_adult": "false",
+                "include_video": "false",
+                "language": "en-US",
+                "page": "1",
+                "sort_by": "popularity.desc",
+                "with_genres": str(genre_id)
+            }
+            headers = {
+                "accept": "application/json",
+                "Authorization": tmdb_auth_key
+            }
+            response = requests.get(
+                url,
+                headers=headers,
+                params=params,
+                timeout=1000
+                )
+            movies = response.json()
+            for m in movies['results']:
+                movie_list.append(m)
+            ids = db.insert_to_mongo(movie_list)
+            return ids
+    if type_of_search == 'tv_search':
+        genre_id = find_tv_genre_id(genre)
+        if genre_id != 0:
+            tv_list = []
+            url = "https://api.themoviedb.org/3/discover/tv?"
+            params = {
+                "include_adult": "false",
+                "include_video": "false",
+                "language": "en-US",
+                "page": "1",
+                "sort_by": "popularity.desc",
+                "with_genres": str(genre_id)
+            }
+            headers = {
+                "accept": "application/json",
+                "Authorization": tmdb_auth_key
+            }
+            response = requests.get(
+                url,
+                headers=headers,
+                params=params,
+                timeout=1000
             )
-        movies = response.json()
-        for m in movies['results']:
-            movie_list.append(m)
-        ids = db.insert_to_mongo(movie_list)
-        return ids
+            tv_shows = response.json()
+            for tv_show in tv_shows['results']:
+                tv_list.append(tv_show)
+            ids = db.insert_to_mongo(tv_list)
+            return ids
+
     return genre_id
 
 
-def return_movie_data(movie_ids: list) -> Any:  # type: ignore
+def return_movie_data(discovered_ids: list) -> Any:  # type: ignore
     """Movie collection variable gets the data from the mongodb
     collection in the cluster.
 
@@ -141,8 +181,8 @@ def return_movie_data(movie_ids: list) -> Any:  # type: ignore
         Any: Returns a list of dicts with all the JSON data
         that was stored in the mongodb database
     """
-    movie_collection = db.get_documents(movie_ids)
-    return movie_collection
+    discovery_collection = db.get_documents(discovered_ids)
+    return discovery_collection
 
 # These functions below are not used, only for testing
 # purposes for when I was setting up the api and the
@@ -159,7 +199,7 @@ def get_input() -> str:
 def getMovies() -> None:
     genre_in = get_input()
     genre = check_genre_title(genre_in)
-    get_movies_by_genre(genre)
+    # search_by_genre(genre)
 
 
 def main() -> None:
