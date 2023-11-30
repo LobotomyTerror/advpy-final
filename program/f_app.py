@@ -36,6 +36,7 @@ def redirect_search() -> Any:
     if search_criteria == 'discover_tv_by_genre':
         return render_template('tv_search.html')
 
+
 @app.route('/search', methods=['GET', 'POST'])
 def search() -> Any:
     """ This function waits for a POST to happen. When the
@@ -56,7 +57,10 @@ def search() -> Any:
     if request.method == 'POST':
         search_query = request.form['searchInput']
         type_query = request.form['search_type']
-        return redirect(url_for('search_results', query=search_query, search_param=type_query))
+        return redirect(
+            url_for('search_results',
+                    query=search_query,
+                    search_param=type_query))
     return redirect(url_for('index'))
 
 
@@ -77,6 +81,7 @@ def search_results() -> Any:
         Any: If condition is true then we render the search_results.
         html page. Otherwise we return to the index page.
     """
+
     search_query = request.args.get('query', '')
     type_of_search = request.args.get('search_param', '')
 

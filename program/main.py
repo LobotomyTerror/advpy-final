@@ -79,6 +79,7 @@ def find_tv_genre_id(genre: str) -> int:
             return genre_id
     return 0
 
+
 def remove_from_db() -> Any:
     """Goes to the database module where the insertion
     into the Mongodb database is conducted
@@ -199,7 +200,7 @@ def get_input() -> str:
 def getMovies() -> None:
     genre_in = get_input()
     genre = check_genre_title(genre_in)
-    # search_by_genre(genre)
+    search_by_genre(genre, 'tv_search')
 
 
 def main() -> None:
