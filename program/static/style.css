@@ -1,6 +1,10 @@
 body, html {
     height: 100%;
     margin: 0;
+    background: #283048;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #859398, #283048);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #859398, #283048); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 .background-1,
 .background-2 {
@@ -100,4 +104,14 @@ form {
 }
 * {
     box-sizing: border-box;
+}
+.card-button {
+    border: none;
+    background: none;
+    padding: 0;
+}
+.card-button:hover div.card.mb-3 {
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
 }
