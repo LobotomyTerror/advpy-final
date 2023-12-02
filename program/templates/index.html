@@ -9,7 +9,7 @@
         <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
     </head>
     <body>
-        <h1>Search Selctions</h1>
+        <h1>Search Selections</h1>
         <p>Select from one of the available options to generate a random movie title:</p>
         <form action="{{ url_for('redirect_search') }}" method="post">
             <button type="submit" name="search_type" value="discover_movies_by_genre" class="card-button">

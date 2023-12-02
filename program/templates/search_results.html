@@ -12,8 +12,9 @@
             {% if results %}
                 <ul>
                     {% for result in results %}
-                        <li>
-                            <div class="gallery">
+                    <li>
+                        <div class="gallery">
+                            <a href="{{ url_for('get_film_data', movie_id=result.id) }}">
                                 <img src="https://image.tmdb.org/t/p/w185/{{result.poster_path}}" alt="Poster" width="400" height="600">
                                 <div class="desc">
                                     {% if result.title %}
@@ -23,8 +24,8 @@
                                     {% endif %}
                                     <span>{{ result.vote_average }}</span>
                                 </div>
-                            </div>
-                        </li>
+                            </a>
+                    </li>
                     {% endfor %}
                 </ul>
             {% else %}
@@ -37,4 +38,4 @@
             </form>
         </div>
     </body>
-</html>
+</html> 

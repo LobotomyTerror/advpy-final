@@ -14,6 +14,7 @@ import requests  # type: ignore
 from tmdbv3api import TMDb
 from tmdbv3api import Genre
 from . import database as db
+# import database as db
 
 # This section just connects my api key that I
 # created for the movie database. I changed the
@@ -27,7 +28,7 @@ tmdb = TMDb()
 tmdb.api_key = tmdb_api_key
 tmdb.language = 'en'
 tmdb.debug = True
-
+# print(tmdb_api_key)
 
 def check_genre_title(genre: str) -> str:
     """Capitalize first character of each word
@@ -104,7 +105,7 @@ def search_by_genre(genre: str, type_of_search: str) -> Any:
         genre (str): The genre that we are searching for
 
     Returns:
-        Any: Retruns either a list of id's from mongodb or
+        Any: Returns either a list of id's from mongodb or
         a 0 to indicate there was no matching id for that genre
     """
     genre = check_genre_title(genre)
@@ -187,6 +188,22 @@ def return_movie_data(discovered_ids: list) -> Any:  # type: ignore
         that was stored in the mongodb database
     """
     discovery_collection = db.get_documents(discovered_ids)
+    return discovery_collection
+
+def return_movie_data_from_API_ID(discovered_ids: list) -> Any:  # type: ignore
+    """Movie collection variable gets the data from the mongodb
+    collection in the cluster.
+
+    Args:
+        movie_ids (list): Passing in the list of movie ids,
+        so mongodb can return the movie data stored in the
+        cluster
+
+    Returns:
+        Any: Returns a list of dicts with all the JSON data
+        that was stored in the mongodb database
+    """
+    discovery_collection = db.get_documents_API_ID(discovered_ids)
     return discovery_collection
 
 # These functions below are not used, only for testing
