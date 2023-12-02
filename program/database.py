@@ -51,3 +51,13 @@ def get_documents(discovered_ids: list) -> Any:  # type: ignore
     result = movie_collection.find({'_id': {'$in': discovered_ids}})
     discover_list = list(result)
     return discover_list
+
+def get_documents_API_ID(discovered_ids: list) -> Any:  # type: ignore
+    uri = get_uri()
+    client: MongoClient = create_mongo_client(uri)  # type: ignore
+    db = client.movie_data
+    movie_collection = db.movie
+
+    result = movie_collection.find({'id': {'$in': discovered_ids}})
+    discover_list = list(result)
+    return discover_list

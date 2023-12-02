@@ -63,6 +63,14 @@ def search() -> Any:
                     search_param=type_query))
     return redirect(url_for('index'))
 
+@app.route('/get_film_data/<int:movie_id>', methods=['GET', 'POST'])
+def get_film_data(movie_id: int) -> Any:
+    movie_IDs = [movie_id]
+    thing = main.return_movie_data_from_API_ID(movie_IDs)
+    film_data_dict = thing[0]
+    
+    return render_template('film_info.html', film_data_dict = film_data_dict)
+
 
 @app.route('/search_results')
 def search_results() -> Any:
@@ -105,6 +113,7 @@ def search_results() -> Any:
                 query=search_query,
                 results=tv_data
             )
+
     return redirect(url_for('index'))
 
 
