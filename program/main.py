@@ -113,56 +113,60 @@ def search_by_genre(genre: str, type_of_search: str) -> Any:
         genre_id = find_movie_genre_id(genre)
         if genre_id != 0:
             movie_list = []
-            url = "https://api.themoviedb.org/3/discover/movie?"
-            params = {
-                "include_adult": "false",
-                "include_video": "false",
-                "language": "en-US",
-                "page": "1",
-                "sort_by": "popularity.desc",
-                "with_genres": str(genre_id)
-            }
-            headers = {
-                "accept": "application/json",
-                "Authorization": tmdb_auth_key
-            }
-            response = requests.get(
-                url,
-                headers=headers,
-                params=params,
-                timeout=1000
-                )
-            movies = response.json()
-            for m in movies['results']:
-                movie_list.append(m)
+            num_of_pages = 5
+            for page_num in range(1, num_of_pages + 1):
+                url = "https://api.themoviedb.org/3/discover/movie?"
+                params = {
+                    "include_adult": "false",
+                    "include_video": "false",
+                    "language": "en-US",
+                    "page": f"{page_num}",
+                    "sort_by": "popularity.desc",
+                    "with_genres": str(genre_id)
+                }
+                headers = {
+                    "accept": "application/json",
+                    "Authorization": tmdb_auth_key
+                }
+                response = requests.get(
+                    url,
+                    headers=headers,
+                    params=params,
+                    timeout=1000
+                    )
+                movies = response.json()
+                for m in movies['results']:
+                    movie_list.append(m)
             ids = db.insert_to_mongo(movie_list)
             return ids
     if type_of_search == 'tv_search':
         genre_id = find_tv_genre_id(genre)
         if genre_id != 0:
             tv_list = []
-            url = "https://api.themoviedb.org/3/discover/tv?"
-            params = {
-                "include_adult": "false",
-                "include_video": "false",
-                "language": "en-US",
-                "page": "1",
-                "sort_by": "popularity.desc",
-                "with_genres": str(genre_id)
-            }
-            headers = {
-                "accept": "application/json",
-                "Authorization": tmdb_auth_key
-            }
-            response = requests.get(
-                url,
-                headers=headers,
-                params=params,
-                timeout=1000
-            )
-            tv_shows = response.json()
-            for tv_show in tv_shows['results']:
-                tv_list.append(tv_show)
+            num_of_pages = 5
+            for page_num in range(1, num_of_pages + 1):
+                url = "https://api.themoviedb.org/3/discover/tv?"
+                params = {
+                    "include_adult": "false",
+                    "include_video": "false",
+                    "language": "en-US",
+                    "page": f"{page_num}",
+                    "sort_by": "popularity.desc",
+                    "with_genres": str(genre_id)
+                }
+                headers = {
+                    "accept": "application/json",
+                    "Authorization": tmdb_auth_key
+                }
+                response = requests.get(
+                    url,
+                    headers=headers,
+                    params=params,
+                    timeout=1000
+                )
+                tv_shows = response.json()
+                for tv_show in tv_shows['results']:
+                    tv_list.append(tv_show)
             ids = db.insert_to_mongo(tv_list)
             return ids
 
@@ -200,7 +204,7 @@ def get_input() -> str:
 def getMovies() -> None:
     genre_in = get_input()
     genre = check_genre_title(genre_in)
-    search_by_genre(genre, 'tv_search')
+    search_by_genre(genre, 'movie_search')
 
 
 def main() -> None:

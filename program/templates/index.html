@@ -11,56 +11,31 @@
     <body>
         <h1>Search Selctions</h1>
         <p>Select from one of the available options to generate a random movie title:</p>
-        <div>
-            <form action="{{ url_for('redirect_search') }}" method="post">
-                <button type="submit" name="search_type" value="discover_movies_by_genre" class="card-button">
-                    <div class="card mb-3" style="max-width: 540px;">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="../static/movie_list.jpg" class="img-fluid rounded-start" alt="movie list">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">Movie Search</h5>
-                                    <p class="card-text">Generate a random movie list to help you choose a movie to watch by genre</p>
-                                </div>
-                            </div>
-                        </div>
+        <form action="{{ url_for('redirect_search') }}" method="post">
+            <button type="submit" name="search_type" value="discover_movies_by_genre" class="card-button">
+                <div class="card m-2 card-opacity" style="width: 300px;">
+                    <div>
+                        <img class="card-img" src="../static/movies.jpg" alt="List of movies">
                     </div>
-                </button>
-            </form>
-            <form action="{{ url_for('redirect_search') }}" method="post">
-                <button type="submit" name="search_type" value="discover_tv_by_genre" class="card-button">
-                    <div class="card mb-3" style="max-width: 540px;">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="../static/tv_shows.png" class="img-fluid rounded-start" alt="tv shows list">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">TV Show Search</h5>
-                                    <p class="card-text">Generate a random tv show list to help you choose a tv show to watch by genre</p>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="card-img-overlay text-white image-text">
+                        <h2 class="card-title">Hello!</h2>
+                        <h5 class="card-text">This is the body of the card</h5>
                     </div>
-                </button>
-            </form>
-        </div>
-        <!--
-
-            <form action="{{ url_for('redirect_search') }}" method="post">
-                <button type="submit" name="search_type" value="discover_movies_by_genre">Discover Movies by Genre</button>
-            </form>
-            <form action="{{ url_for('redirect_search') }}" method="post">
-                <button type="submit" name="search_type" value="discover_tv_by_genre">Discover TV Shows by Genre</button>
-            </form>
-            <form action="{{ url_for('redirect_search') }}" method="post">
-                <button type="submit" name="search_type" value="discover_movies_by_actor">Discover Movies by Actor</button>
-            </form>
-            <form action="{{ url_for('redirect_search') }}" method="post">
-                <button type="submit" name="search_type" value="discover_tv_by_actor">Discover TV Shows by Actor</button>
-            </form>
-        -->
+                </div>
+            </button>
+        </form>
+        <form action="{{ url_for('redirect_search') }}" method="post">
+            <button type="submit" name="search_type" value="discover_movies_by_genre" class="card-button">
+                <div class="card m-2 card-opacity" style="width: 300px;">
+                    <div>
+                        <img class="card-img" src="../static/tvshows.jpg" alt="List of movies">
+                    </div>
+                    <div class="card-img-overlay text-white image-text">
+                        <h2 class="card-title">Hello!</h2>
+                        <h5 class="card-text">This is the body of the card</h5>
+                    </div>
+                </div>
+            </button>
+        </form>
     </body>
 </html>
