@@ -52,6 +52,7 @@ def get_documents(discovered_ids: list) -> Any:  # type: ignore
     discover_list = list(result)
     return discover_list
 
+
 def get_documents_API_ID(discovered_ids: list) -> Any:  # type: ignore
     uri = get_uri()
     client: MongoClient = create_mongo_client(uri)  # type: ignore

@@ -28,7 +28,7 @@ tmdb = TMDb()
 tmdb.api_key = tmdb_api_key
 tmdb.language = 'en'
 tmdb.debug = True
-# print(tmdb_api_key)
+
 
 def check_genre_title(genre: str) -> str:
     """Capitalize first character of each word
@@ -190,7 +190,8 @@ def return_movie_data(discovered_ids: list) -> Any:  # type: ignore
     discovery_collection = db.get_documents(discovered_ids)
     return discovery_collection
 
-def return_movie_data_from_API_ID(discovered_ids: list) -> Any:  # type: ignore
+
+def return_movie_data_from_api_id(discovered_ids: list) -> Any:  # type: ignore
     """Movie collection variable gets the data from the mongodb
     collection in the cluster.
 
