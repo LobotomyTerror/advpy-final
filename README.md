@@ -13,7 +13,6 @@ MONGODB_PASS='your_actual_pass'
 TMDB_API_KEY='tmdb_api_key'
 TMDB_AUTH_KEY='tmdb_auth_key'
 ```
-These act as environment variables that Heroku can access when the app is being deployed. The one thing that is needed to do to make sure that Heroku is able to access the environment variables is to add them to the config vars in the Heroku website. You can find the config vars spot under the settings tab which is shown in the picture: 
-![Heroku Settings Tab](https://github.com/LobotomyTerror/advpy-final/blob/main/heroku_config_vars.png)
+Deplyment through Heroku is already setup so no need to worry about adding these variables to it.
 
 Hello just a test
