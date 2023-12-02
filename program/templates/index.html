@@ -9,33 +9,53 @@
         <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
     </head>
     <body>
-        <h1>Search Selections</h1>
-        <p>Select from one of the available options to generate a random movie title:</p>
-        <form action="{{ url_for('redirect_search') }}" method="post">
-            <button type="submit" name="search_type" value="discover_movies_by_genre" class="card-button">
-                <div class="card m-2 card-opacity" style="width: 300px;">
-                    <div>
-                        <img class="card-img" src="../static/movies.jpg" alt="List of movies">
+        <div class="card-layout">
+            <div class="button-layout card bg-light mb-3" style="max-width: 25rem;">
+                <!--
+                    <div class="card-header">
+                        Search Selctions
                     </div>
-                    <div class="card-img-overlay text-white image-text">
-                        <h2 class="card-title">Hello!</h2>
-                        <h5 class="card-text">This is the body of the card</h5>
-                    </div>
+                -->
+                <div class="card-body">
+                    <h3 class="card-title">Search Selection</h3>
+                    <p class="card-text">Select from one of the available options to generate a random titles by genre</p>
+                    <form action="{{ url_for('redirect_search') }}" method="post">
+                        <button type="submit" name="search_type" value="discover_movies_by_genre" class="card-button">
+                            <div class="card m-2 card-opacity" style="width: 300px;">
+                                <div>
+                                    <img class="card-img" src="../static/movies.jpg" alt="List of movies">
+                                </div>
+                                <div class="card-img-overlay text-white image-text">
+                                    <h2 class="card-title">Movies</h2>
+                                    <h4 class="card-text">Find Random Movies By Genre To Help You Find Something To Watch</h4>
+                                </div>
+                            </div>
+                        </button>
+                    </form>
+                    <form action="{{ url_for('redirect_search') }}" method="post">
+                        <button type="submit" name="search_type" value="discover_tv_by_genre" class="card-button">
+                            <div class="card m-2 card-opacity" style="width: 300px;">
+                                <div>
+                                    <img class="card-img" src="../static/tvshows.jpg" alt="List of movies">
+                                </div>
+                                <div class="card-img-overlay text-white image-text">
+                                    <h2 class="card-title">TV Shows</h2>
+                                    <h4 class="card-text">Find Random Tv Shows By Genre To Help You Find Something To Watch</h4>
+                                </div>
+                            </div>
+                        </button>
+                    </form>
                 </div>
-            </button>
-        </form>
-        <form action="{{ url_for('redirect_search') }}" method="post">
-            <button type="submit" name="search_type" value="discover_movies_by_genre" class="card-button">
-                <div class="card m-2 card-opacity" style="width: 300px;">
-                    <div>
-                        <img class="card-img" src="../static/tvshows.jpg" alt="List of movies">
-                    </div>
-                    <div class="card-img-overlay text-white image-text">
-                        <h2 class="card-title">Hello!</h2>
-                        <h5 class="card-text">This is the body of the card</h5>
-                    </div>
-                </div>
-            </button>
-        </form>
+            </div>
+        </div>
+            <!--
+                <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+            <div class="card-header">Header</div>
+                <div class="card-body">
+                    <h5 class="card-title">Light card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+        -->
     </body>
 </html>
