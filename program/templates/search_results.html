@@ -8,9 +8,15 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-nv0XGd+wL0ZJJVN2+0jsBkGRDb5jE2w4t8kkQpR+ROAI4Vy/6hXbXSUvqIw7p5He" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
     </head>
     <body>
-        <div><h3>Search Results for {{ query|capitalize }}</h3></div>
+        <div class="container mt-4 text-center">
+            <div class="bg-dark text-light p-3 border rounded">
+                <i class="fas fa-search-plus fa-2x"></i>
+                <h3 class="d-inline ml-2">Search Results for {{ query|capitalize }}</h3>
+            </div>
+        </div>
         <div class="tiles box">
             {% if results %}
             <div class="row row-cols-1 row-cols-md-6 rows-cols-lg-auto g-4">
@@ -21,26 +27,34 @@
                         <button type="submit" class="tiles-button" name="search_type" value="movie_trailers">
                             <div class="card">
                                 <img class="card-img-top" src="https://image.tmdb.org/t/p/w185/{{result.poster_path}}" alt="">
-                                <div class="card-body" style="height: 150px;">
+                                <div class="card-body" style="height: 165px;">
                                     {% if result.title %}
                                     <h5 class="card-title">{{ result.title }}</h5>
                                     {% else %}
                                     <h5 class="card-title">{{ result.name }}</h5>
                                     {%  endif %}
-                                    {% set vote_count = result.vote_average %}
-                                    <p class="star-rating">
-                                        {% set filled_stars = vote_count | int%}
-                                        {% set remaining_stars = 10 - (filled_stars + 1) %}
-                                        {% for _ in range(filled_stars) %}
-                                            <span><i class="fas fa-star"></i></span>
-                                        {% endfor %}
-                                        {% if vote_count % 1 != 0 %}
-                                            <span><i class="fas fa-star-half-alt"></i></span>
-                                        {% endif %}
-                                        {% for _ in range(remaining_stars) %}
-                                            <span><i class="far fa-star"></i></span>
-                                        {% endfor %}
-                                    </p>
+                                    <!-- Idea came from this website 
+                                    https://medium.com/@pppped/how-to-code-a-responsive-circular-percentage-chart-with-svg-and-css-3632f8cd7705
+                                    -->
+                                    <div class="flex-wrapper">
+                                        {% set vote_count = result.vote_average * 10 %}
+                                        <div class="single-chart">
+                                          <svg viewBox="0 0 36 36" class="circular-chart {% if vote_count >= 70 %}green{% elif vote_count >= 40 %}orange{% else %}red{% endif %}">
+                                            <path class="circle-bg"
+                                              d="M18 2.0845
+                                                a 15.9155 15.9155 0 0 1 0 31.831
+                                                a 15.9155 15.9155 0 0 1 0 -31.831"
+                                            />
+                                            <path class="circle"
+                                              stroke-dasharray="{{vote_count}}, 100"
+                                              d="M18 2.0845
+                                                a 15.9155 15.9155 0 0 1 0 31.831
+                                                a 15.9155 15.9155 0 0 1 0 -31.831"
+                                            />
+                                            <text x="18" y="20.35" class="percentage">{{ vote_count | int }}%</text>
+                                          </svg>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </button>
@@ -48,26 +62,31 @@
                         <button type="submit" class="tiles-button" name="search_type" value="tv_trailers">
                             <div class="card">
                                 <img class="card-img-top" src="https://image.tmdb.org/t/p/w185/{{result.poster_path}}" alt="">
-                                <div class="card-body" style="height: 150px;">
+                                <div class="card-body" style="height: 175px;">
                                     {% if result.title %}
                                     <h5 class="card-title">{{ result.title }}</h5>
                                     {% else %}
                                     <h5 class="card-title">{{ result.name }}</h5>
                                     {%  endif %}
-                                    {% set vote_count = result.vote_average %}
-                                    <p class="star-rating">
-                                        {% set filled_stars = vote_count | int%}
-                                        {% set remaining_stars = 10 - (filled_stars + 1) %}
-                                        {% for _ in range(filled_stars) %}
-                                            <span><i class="fas fa-star"></i></span>
-                                        {% endfor %}
-                                        {% if vote_count % 1 != 0 %}
-                                            <span><i class="fas fa-star-half-alt"></i></span>
-                                        {% endif %}
-                                        {% for _ in range(remaining_stars) %}
-                                            <span><i class="far fa-star"></i></span>
-                                        {% endfor %}
-                                    </p>
+                                    <div class="flex-wrapper">
+                                        {% set vote_count = result.vote_average * 10 %}
+                                        <div class="single-chart">
+                                          <svg viewBox="0 0 36 36" class="circular-chart {% if vote_count >= 70 %}green{% elif vote_count >= 40 %}orange{% else %}red{% endif %}">
+                                            <path class="circle-bg"
+                                              d="M18 2.0845
+                                                a 15.9155 15.9155 0 0 1 0 31.831
+                                                a 15.9155 15.9155 0 0 1 0 -31.831"
+                                            />
+                                            <path class="circle"
+                                              stroke-dasharray="{{vote_count}}, 100"
+                                              d="M18 2.0845
+                                                a 15.9155 15.9155 0 0 1 0 31.831
+                                                a 15.9155 15.9155 0 0 1 0 -31.831"
+                                            />
+                                            <text x="18" y="20.35" class="percentage">{{ vote_count | int }}%</text>
+                                          </svg>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </button>
@@ -79,9 +98,12 @@
             {% endif %}
         </div>
             
-        <div>
+        <div class="clear-button">
             <form action="{{ url_for('clear_db') }}" method="post">
-                <button type="submit">Clear Results</button>
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash"></i>
+                    Clear Results
+                </button>
             </form>
         </div>
     </body>

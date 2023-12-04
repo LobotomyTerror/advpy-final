@@ -15,10 +15,18 @@
                 <img src="https://image.tmdb.org/t/p/original{{ film_data_dict['poster_path'] }}" alt="Poster background">
                 <div class="content-overlay">
                     <div class="text-content">
-                        <h3>Film Title: {{ film_data_dict['title'] }}</h3>
-                        <p>Film Description: {{ film_data_dict['overview'] }}</p>
-                        <p>Film Release Date: {{ film_data_dict['release_date'] }}</p>
-                        <p>Film Popularity: {{ film_data_dict['popularity'] }}</p>
+                        {% if film_data_dict['title'] %}
+                        <h3>Title: {{ film_data_dict['title'] }}</h3>
+                        {% else %}
+                        <h3>Title: {{ film_data_dict['name'] }}</h3>
+                        {% endif %}
+                        <p>Overview: {{ film_data_dict['overview'] }}</p>
+                        {% if film_data_dict['release_date'] %}
+                        <p>Release Date: {{ film_data_dict['release_date'] }}</p>
+                        {% else %}
+                        <p>Release Date: {{ film_data_dict['first_air_date'] }}</p>
+                        {% endif %}
+                        <p>Popularity: {{ film_data_dict['popularity'] }}</p>
                     </div>
                     <div class="iframe-container">
                         <iframe 
