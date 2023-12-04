@@ -73,7 +73,7 @@ def get_film_data(type_id: int) -> Any:
     search_type = request.args.get('search_type')
     ids = [type_id]
     film_data = main.return_movie_data_from_api_id(ids)
-    trailer_data = main.get_trailer_data(type_id, search_type)
+    trailer_data = main.get_trailer_data(type_id, search_type)  # type: ignore
     film_data_dict = film_data[0]
 
     if trailer_data is None:

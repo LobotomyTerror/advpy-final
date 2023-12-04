@@ -15,7 +15,7 @@ import requests  # type: ignore
 from tmdbv3api import TMDb
 from tmdbv3api import Genre
 from . import database as db
-#import database as db
+# import database as db
 
 # This section just connects my api key that I
 # created for the movie database. I changed the
@@ -217,25 +217,38 @@ def get_trailer_data(title_id: int, search_type: str) -> Any:
     }
 
     if search_type == "movie_trailers":
-        url = f"https://api.themoviedb.org/3/movie/{title_id}/videos?language=en-US"
+        url = (
+            f"https://api.themoviedb.org/3/movie"
+            f"/{title_id}/videos?language=en-US"
+        )
 
         response = requests.get(url, headers=headers, timeout=1000)
         video = response.json()
-        trailer_variations = re.compile("Official Trailer|Trailer|original trailer", re.I)
+        trailer_variations = re.compile(
+            "Official Trailer|Trailer|original trailer",
+            re.I)
         for trailer in video['results']:
             trailer_name = trailer.get('name', '')
-            if trailer_variations.search(trailer_name) and trailer.get('type', '') == "Trailer":
+            if trailer_variations.search(trailer_name) \
+                    and trailer.get('type', '') == "Trailer":
                 return trailer.get("key", None)
     else:
-        url = f"https://api.themoviedb.org/3/tv/{title_id}/videos?language=en-US"
+        url = (
+            f"https://api.themoviedb.org/3/tv/"
+            f"{title_id}/videos?language=en-US"
+        )
 
         response = requests.get(url, headers=headers, timeout=1000)
         video = response.json()
-        trailer_variations = re.compile("Official Trailer|Trailer|original trailer", re.I)
+        trailer_variations = re.compile(
+            "Official Trailer|Trailer|original trailer",
+            re.I)
 
         for trailers in video['results']:
             trailers_name = trailers.get('name', '')
-            if trailer_variations.search(trailers_name) or trailers.get('official', '') is True and trailers.get('type', '') == "Trailer":
+            if trailer_variations.search(trailers_name) \
+                    or trailers.get('official', '') is True \
+                    and trailers.get('type', '') == "Trailer":
                 official_trailer = trailers.get('key', None)
                 return official_trailer
     return None
@@ -253,7 +266,7 @@ def get_input() -> str:
 
 
 def getMovies() -> None:
-    #get_trailer_data(741592, "movie_trailers")
+    # get_trailer_data(741592, "movie_trailers")
     get_trailer_data(2025, "tv_trailers")
     genre_in = get_input()
     genre = check_genre_title(genre_in)
