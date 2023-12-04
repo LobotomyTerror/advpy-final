@@ -66,43 +66,32 @@ body, html {
 }
 .box {
     width: 100%;
-    height: 400px;
+    height: 500px;
     margin: 0;
     overflow: scroll;
+    padding: 20px;
 }
-.tiles {
-    color: black;
-}
-.tiles ul {
-    list-style: none;
+.tiles-button {
+    border: none;
+    background: none;
     padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-.tiles li {
-    width: 150px;
-    margin: 10px;
-    display: flex;
-    flex-direction: column;
-}
-.tiles div.gallery {
-    flex: 1;
-}
-.tiles div.gallery img {
     width: 100%;
+}
+.tiles-button:hover .card.h-100 {
+    border: 2px solid black;
+}
+.custom-card-img {
+    width: 150px;
     height: auto;
 }
-.tiles div.desc {
-    text-align: center;
-    color: black;
-    padding: 10px;
-    background-color: white;
-    flex: 1;
+.star-rating {
+    font-size: 16px;
+    color: #ffd700;
+    display: flex;
+    justify-content: center;
 }
-.tiles div.desc span {
-    display: block;
-    overflow-wrap: break-word;
+.star-rating span i {
+    padding: 1px;
 }
 * {
     box-sizing: border-box;
@@ -150,4 +139,51 @@ p.card-text {
 }
 h3.card-title {
     text-align: center;
+}
+.background-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.background-container img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(31.5, 10.5, 31.5, 1), rgba(31.5, 10.5, 31.5, 0.84) 50%, rgba(31.5, 10.5, 31.5, 0.84) 100%);
+}
+.content-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: left;
+    color: white;
+    width: 90%;
+    height: 70%;
+}
+.text-content {
+    padding-right: 20px;
+    width: 50%;
+}
+.iframe-container {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.iframe-container iframe {
+    width: 100%;
+    height: 100%;
 }

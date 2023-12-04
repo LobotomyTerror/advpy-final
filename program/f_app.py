@@ -30,7 +30,9 @@ def index() -> Any:
 
 @app.route('/redirect_search', methods=['POST'])
 def redirect_search() -> Any:
+
     search_criteria = request.form['search_type']
+
     if search_criteria == 'discover_movies_by_genre':
         return render_template('movie_search.html')
     if search_criteria == 'discover_tv_by_genre':
@@ -61,16 +63,27 @@ def search() -> Any:
             url_for('search_results',
                     query=search_query,
                     search_param=type_query))
+
     return redirect(url_for('index'))
 
 
-@app.route('/get_film_data/<int:movie_id>', methods=['GET', 'POST'])
-def get_film_data(movie_id: int) -> Any:
-    movie_ids = [movie_id]
-    thing = main.return_movie_data_from_api_id(movie_ids)
-    film_data_dict = thing[0]
+@app.route('/get_film_data/<int:type_id>', methods=['GET', 'POST'])
+def get_film_data(type_id: int) -> Any:
 
-    return render_template('film_info.html', film_data_dict=film_data_dict)
+    search_type = request.args.get('search_type')
+    ids = [type_id]
+    film_data = main.return_movie_data_from_api_id(ids)
+    trailer_data = main.get_trailer_data(type_id, search_type)
+    film_data_dict = film_data[0]
+
+    if trailer_data is None:
+        return render_template('film_info.html', film_data_dict=film_data_dict)
+
+    return render_template(
+        'film_info.html',
+        film_data_dict=film_data_dict,
+        trailer=trailer_data
+        )
 
 
 @app.route('/search_results')
@@ -102,7 +115,8 @@ def search_results() -> Any:
             return render_template(
                 'search_results.html',
                 query=search_query,
-                results=movie_data
+                results=movie_data,
+                type_of_search=type_of_search
                 )
     if type_of_search == 'tv_search':
         tv_ids = main.search_by_genre(search_query, type_of_search)
@@ -112,7 +126,8 @@ def search_results() -> Any:
             return render_template(
                 'search_results.html',
                 query=search_query,
-                results=tv_data
+                results=tv_data,
+                type_of_search=type_of_search
             )
 
     return redirect(url_for('index'))

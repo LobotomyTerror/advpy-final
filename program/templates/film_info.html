@@ -1,15 +1,47 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <title>Film Information</title>
-    <!-- Add your stylesheets or other metadata as needed -->
-</head>
-<body>
-    <h3>Film Title: {{ film_data_dict['original_title'] }}</h3>
-    <!-- Displaying other fields from the dictionary -->
-    <p>Film Description: {{ film_data_dict['overview'] }}</p>
-    <p>Film Release Date: {{ film_data_dict['release_date'] }}</p>
-    <p>Film Popularity: {{ film_data_dict['popularity'] }}</p>
-</body>
+    <head>
+        <title>Film Information</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+    </head>
+    <body>
+        {% if trailer %}
+            <div class="background-container">
+                <div class="overlay"></div>
+                <img src="https://image.tmdb.org/t/p/original{{ film_data_dict['poster_path'] }}" alt="Poster background">
+                <div class="content-overlay">
+                    <div class="text-content">
+                        <h3>Film Title: {{ film_data_dict['title'] }}</h3>
+                        <p>Film Description: {{ film_data_dict['overview'] }}</p>
+                        <p>Film Release Date: {{ film_data_dict['release_date'] }}</p>
+                        <p>Film Popularity: {{ film_data_dict['popularity'] }}</p>
+                    </div>
+                    <div class="iframe-container">
+                        <iframe 
+                            width="560" height="315" 
+                            src="https://www.youtube.com/embed/{{ trailer }}" title="YouTube video player" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="background-container">
+                <div class="overlay"></div>
+                <img src="https://image.tmdb.org/t/p/original{{ film_data_dict['poster_path'] }}" alt="Poster background">
+                <div class="content-overlay">
+                    <div class="text-content">
+                        <h3>Film Title: {{ film_data_dict['title'] }}</h3>
+                        <p>Film Description: {{ film_data_dict['overview'] }}</p>
+                        <p>Film Release Date: {{ film_data_dict['release_date'] }}</p>
+                        <p>Film Popularity: {{ film_data_dict['popularity'] }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </body>
 </html>

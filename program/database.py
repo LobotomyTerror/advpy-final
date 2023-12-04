@@ -30,6 +30,9 @@ def insert_to_mongo(discover_list: list) -> Any:  # type: ignore
     movie = db.movie
     # for movie_data in movie_list:
     # movie_data['_id'] = movie_data.pop('id')
+    collection = movie.find_one({})
+    if collection:
+        delete_db()
     return_ids = movie.insert_many(discover_list)
     return return_ids.inserted_ids
 
