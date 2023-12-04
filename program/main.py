@@ -209,8 +209,9 @@ def return_movie_data_from_api_id(discovered_ids: list) -> Any:  # type: ignore
     return discovery_collection
 
 
-def get_trailer_data(title_id: int, search_type: str) -> Any:
+def get_trailer_data(title_id: int, search_type: str, genre_ids: list) -> Any:
     tmdb_auth_key = os.getenv('TMDB_AUTH_KEY')
+    genre_list = Genre()
     headers = {
             "accept": "application/json",
             "Authorization": tmdb_auth_key
@@ -227,11 +228,21 @@ def get_trailer_data(title_id: int, search_type: str) -> Any:
         trailer_variations = re.compile(
             "Official Trailer|Trailer|original trailer",
             re.I)
+
+        # genre_list = Genre()
+        genre_list = genre_list.movie_list()
+        genre_names = []
+
+        for genre_name in genre_list:
+            if genre_name.get('id', '') in genre_ids:
+                genre_names.append(genre_name.get('name', ''))
+
+
         for trailer in video['results']:
             trailer_name = trailer.get('name', '')
             if trailer_variations.search(trailer_name) \
                     and trailer.get('type', '') == "Trailer":
-                return trailer.get("key", None)
+                return trailer.get("key", None), genre_names
     else:
         url = (
             f"https://api.themoviedb.org/3/tv/"
@@ -244,14 +255,21 @@ def get_trailer_data(title_id: int, search_type: str) -> Any:
             "Official Trailer|Trailer|original trailer",
             re.I)
 
+        genre_list = genre_list.tv_list()
+        genre_names = []
+
+        for genre_name in genre_list:
+            if genre_name.get('id', '') in genre_ids:
+                genre_names.append(genre_name.get('name', ''))
+
         for trailers in video['results']:
             trailers_name = trailers.get('name', '')
             if trailer_variations.search(trailers_name) \
                     or trailers.get('official', '') is True \
                     and trailers.get('type', '') == "Trailer":
                 official_trailer = trailers.get('key', None)
-                return official_trailer
-    return None
+                return official_trailer, genre_names
+    return None, genre_names
 
 # These functions below are not used, only for testing
 # purposes for when I was setting up the api and the
@@ -267,7 +285,7 @@ def get_input() -> str:
 
 def getMovies() -> None:
     # get_trailer_data(741592, "movie_trailers")
-    get_trailer_data(2025, "tv_trailers")
+    # get_trailer_data(2025, "tv_trailers", [])
     genre_in = get_input()
     genre = check_genre_title(genre_in)
     search_by_genre(genre, 'movie_search')

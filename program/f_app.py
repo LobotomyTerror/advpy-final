@@ -73,16 +73,25 @@ def get_film_data(type_id: int) -> Any:
     search_type = request.args.get('search_type')
     ids = [type_id]
     film_data = main.return_movie_data_from_api_id(ids)
-    trailer_data = main.get_trailer_data(type_id, search_type)  # type: ignore
     film_data_dict = film_data[0]
+    genre_ids: list = film_data_dict['genre_ids']
+    trailer_data, genre_names = main.get_trailer_data(
+        type_id,
+        search_type,
+        genre_ids)  # type: ignore
 
     if trailer_data is None:
-        return render_template('film_info.html', film_data_dict=film_data_dict)
+        return render_template(
+            'film_info.html',
+            film_data_dict=film_data_dict,
+            genre_names=genre_names
+            )
 
     return render_template(
         'film_info.html',
         film_data_dict=film_data_dict,
-        trailer=trailer_data
+        trailer=trailer_data,
+        genre_names=genre_names
         )
 
 
