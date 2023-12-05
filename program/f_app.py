@@ -85,14 +85,14 @@ def get_film_data(type_id: int) -> Any:
             'film_info.html',
             film_data_dict=film_data_dict,
             genre_names=genre_names
-            )
+        )
 
     return render_template(
         'film_info.html',
         film_data_dict=film_data_dict,
         trailer=trailer_data,
         genre_names=genre_names
-        )
+    )
 
 
 @app.route('/search_results')
@@ -126,7 +126,7 @@ def search_results() -> Any:
                 query=search_query,
                 results=movie_data,
                 type_of_search=type_of_search
-                )
+            )
     if type_of_search == 'tv_search':
         tv_ids = main.search_by_genre(search_query, type_of_search)
         if tv_ids != 0:
