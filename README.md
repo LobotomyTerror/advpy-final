@@ -1,5 +1,14 @@
 # Advpy Final App
 
+| Names | Dan, Jack, and Quentin |
+|:---|:---|
+| **Course** | CSCI310-001-25688 Adv Prog: Python |
+| **Section** | 1 |
+| **Semester** | Fall 2023 |
+| **Repository**          | https://github.com/LobotomyTerror/advpy-final |
+| **Self Grade** | We used a public API, Mongodb, and flask. We used the course container and adhered to Git best practices. In addition, we assigned ussues to each member and created branches for each issue. We also used a Makefile to automate local tests, unittest, mypy type checking, and pep8 style checking. Self grade: 100% |
+
+
 
 ### Must Need
 
