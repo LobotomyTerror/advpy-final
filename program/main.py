@@ -12,7 +12,7 @@ import re
 from typing import Any
 from dotenv import load_dotenv
 import requests
-from tmdbv3api import TMDb  # type: ignore
+from tmdbv3api import TMDb
 from tmdbv3api import Genre
 from . import database as db
 
