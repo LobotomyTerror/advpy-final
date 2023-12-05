@@ -11,11 +11,10 @@ import os
 import re
 from typing import Any
 from dotenv import load_dotenv
-import requests  # type: ignore
-from tmdbv3api import TMDb
+import requests
+from tmdbv3api import TMDb  # type: ignore
 from tmdbv3api import Genre
 from . import database as db
-# import database as db
 
 # This section just connects my api key that I
 # created for the movie database. I changed the
@@ -126,16 +125,16 @@ def search_by_genre(genre: str, type_of_search: str) -> Any:
                     "sort_by": "popularity.desc",
                     "with_genres": str(genre_id)
                 }
-                headers = {
+                headers: dict[str, str] = {
                     "accept": "application/json",
-                    "Authorization": tmdb_auth_key
+                    "Authorization": str(tmdb_auth_key)
                 }
                 response = requests.get(
                     url,
                     headers=headers,
                     params=params,
                     timeout=1000
-                    )
+                )
                 movies = response.json()
                 for m in movies['results']:
                     movie_list.append(m)
@@ -158,7 +157,7 @@ def search_by_genre(genre: str, type_of_search: str) -> Any:
                 }
                 headers = {
                     "accept": "application/json",
-                    "Authorization": tmdb_auth_key
+                    "Authorization": str(tmdb_auth_key)
                 }
                 response = requests.get(
                     url,
@@ -217,8 +216,8 @@ def get_trailer_data(
     tmdb_auth_key = os.getenv('TMDB_AUTH_KEY')
     genre_list = Genre()
     headers = {
-            "accept": "application/json",
-            "Authorization": tmdb_auth_key
+        "accept": "application/json",
+        "Authorization": tmdb_auth_key
     }
 
     if search_type == "movie_trailers":
@@ -227,7 +226,10 @@ def get_trailer_data(
             f"/{title_id}/videos?language=en-US"
         )
 
-        response = requests.get(url, headers=headers, timeout=1000)
+        response = requests.get(
+            url,
+            headers=headers,  # type: ignore
+            timeout=1000)
         video = response.json()
         trailer_variations = re.compile(
             "Official Trailer|Trailer|original trailer",
@@ -252,7 +254,10 @@ def get_trailer_data(
             f"{title_id}/videos?language=en-US"
         )
 
-        response = requests.get(url, headers=headers, timeout=1000)
+        response = requests.get(
+            url,
+            headers=headers,  # type: ignore
+            timeout=1000)
         video = response.json()
         trailer_variations = re.compile(
             "Official Trailer|Trailer|original trailer",
