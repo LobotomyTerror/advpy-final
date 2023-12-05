@@ -209,7 +209,11 @@ def return_movie_data_from_api_id(discovered_ids: list) -> Any:  # type: ignore
     return discovery_collection
 
 
-def get_trailer_data(title_id: int, search_type: str, genre_ids: list) -> Any:
+def get_trailer_data(
+        title_id: int,
+        search_type: str,
+        genre_ids: list) -> Any:  # type: ignore
+
     tmdb_auth_key = os.getenv('TMDB_AUTH_KEY')
     genre_list = Genre()
     headers = {
@@ -236,7 +240,6 @@ def get_trailer_data(title_id: int, search_type: str, genre_ids: list) -> Any:
         for genre_name in genre_list:
             if genre_name.get('id', '') in genre_ids:
                 genre_names.append(genre_name.get('name', ''))
-
 
         for trailer in video['results']:
             trailer_name = trailer.get('name', '')
