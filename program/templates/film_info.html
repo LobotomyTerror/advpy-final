@@ -9,7 +9,10 @@
         <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
     </head>
     <body>
-        {% if trailer %}
+        <!-- Planned for a later data
+            <div class="parallax-container"></div>
+        -->
+            {% if trailer %}
             <div class="background-container">
                 <div class="overlay"></div>
                 <img src="https://image.tmdb.org/t/p/original{{ film_data_dict['poster_path'] }}" alt="Poster background">
@@ -28,45 +31,45 @@
                         {% endif %}
                         <p>Genres: 
                             {% for genre_name in genre_names %}
-                                {% if loop.last %}
-                                    {{ genre_name }}
-                                {% else %}
-                                    {{ genre_name }},
-                                {% endif %}
+                            {% if loop.last %}
+                            {{ genre_name }}
+                            {% else %}
+                            {{ genre_name }},
+                            {% endif %}
                             {% endfor %}
                         </p>
                         <div>
-                                <div class="flex-wrapper">
-                                    {% set vote_count = film_data_dict['vote_average'] * 10 %}
-                                    <div class="single-chart">
-                                      <svg viewBox="0 0 36 36" class="circular-chart {% if vote_count >= 70 %}green{% elif vote_count >= 40 %}orange{% else %}red{% endif %}">
+                            <div class="flex-wrapper">
+                                {% set vote_count = film_data_dict['vote_average'] * 10 %}
+                                <div class="single-chart">
+                                    <svg viewBox="0 0 36 36" class="circular-chart {% if vote_count >= 70 %}green{% elif vote_count >= 40 %}orange{% else %}red{% endif %}">
                                         <path class="circle-bg"
-                                          d="M18 2.0845
-                                            a 15.9155 15.9155 0 0 1 0 31.831
-                                            a 15.9155 15.9155 0 0 1 0 -31.831"
+                                        d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"
                                         />
                                         <path class="circle"
-                                          stroke-dasharray="{{vote_count}}, 100"
-                                          d="M18 2.0845
-                                            a 15.9155 15.9155 0 0 1 0 31.831
-                                            a 15.9155 15.9155 0 0 1 0 -31.831"
+                                        stroke-dasharray="{{vote_count}}, 100"
+                                        d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"
                                         />
                                         <text x="18" y="20.35" class="percentage">{{ vote_count | int }}%</text>
-                                      </svg>
-                                    </div>
+                                    </svg>
                                 </div>
+                            </div>
                         </div>
                     </div>
                     <div class="iframe-container">
                         <iframe 
-                            width="560" height="315" 
-                            src="https://www.youtube.com/embed/{{ trailer }}" title="YouTube video player" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        width="560" height="315" 
+                        src="https://www.youtube.com/embed/{{ trailer }}" title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
-        {% else %}
+            {% else %}
             <div class="background-container">
                 <div class="overlay"></div>
                 <img src="https://image.tmdb.org/t/p/original{{ film_data_dict['poster_path'] }}" alt="Poster background">
@@ -85,35 +88,40 @@
                         {% endif %}
                         <p>Genres: 
                             {% for genre_name in genre_names %}
-                                {% if loop.last %}
-                                    {{ genre_name }}
-                                {% else %}
-                                    {{ genre_name }},
-                                {% endif %}
+                            {% if loop.last %}
+                            {{ genre_name }}
+                            {% else %}
+                            {{ genre_name }},
+                            {% endif %}
                             {% endfor %}
                         </p>
-                            <div class="flex-wrapper">
-                                {% set vote_count = film_data_dict['vote_average'] * 10 %}
-                                <div class="single-chart">
-                                  <svg viewBox="0 0 36 36" class="circular-chart {% if vote_count >= 70 %}green{% elif vote_count >= 40 %}orange{% else %}red{% endif %}">
+                        <div class="flex-wrapper">
+                            {% set vote_count = film_data_dict['vote_average'] * 10 %}
+                            <div class="single-chart">
+                                <svg viewBox="0 0 36 36" class="circular-chart {% if vote_count >= 70 %}green{% elif vote_count >= 40 %}orange{% else %}red{% endif %}">
                                     <path class="circle-bg"
-                                      d="M18 2.0845
-                                        a 15.9155 15.9155 0 0 1 0 31.831
-                                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                                    d="M18 2.0845
+                                    a 15.9155 15.9155 0 0 1 0 31.831
+                                    a 15.9155 15.9155 0 0 1 0 -31.831"
                                     />
                                     <path class="circle"
-                                      stroke-dasharray="{{vote_count}}, 100"
-                                      d="M18 2.0845
-                                        a 15.9155 15.9155 0 0 1 0 31.831
-                                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                                    stroke-dasharray="{{vote_count}}, 100"
+                                    d="M18 2.0845
+                                    a 15.9155 15.9155 0 0 1 0 31.831
+                                    a 15.9155 15.9155 0 0 1 0 -31.831"
                                     />
                                     <text x="18" y="20.35" class="percentage">{{ vote_count | int }}%</text>
-                                  </svg>
-                                </div>
+                                </svg>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        {% endif %}
+            {% endif %}
+        <!-- Planned for later
+            <div style="height: 1000px; background-color: white;">
+                <h1>Hello!</h1>
+            </div>
+        -->
     </body>
 </html>
