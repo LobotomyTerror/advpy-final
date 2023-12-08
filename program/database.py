@@ -18,13 +18,13 @@ def get_uri() -> Any:
     return uri
 
 
-def create_mongo_client(uri: str) -> MongoClient:
+def create_mongo_client(uri: str) -> MongoClient:  # type: ignore
     return MongoClient(uri, tlsCAFile=certifi.where())
 
 
 def insert_to_mongo(discover_list: list) -> Any:  # type: ignore
     uri = get_uri()
-    client: MongoClient = create_mongo_client(uri)
+    client: MongoClient = create_mongo_client(uri)  # type: ignore
 
     db = client.movie_data
     movie = db.movie
@@ -39,7 +39,7 @@ def insert_to_mongo(discover_list: list) -> Any:  # type: ignore
 
 def delete_db() -> Any:
     uri = get_uri()
-    client: MongoClient = create_mongo_client(uri)
+    client: MongoClient = create_mongo_client(uri)  # type: ignore
     db = client.movie_data
     movie = db.movie
     movie.delete_many({})
@@ -47,7 +47,7 @@ def delete_db() -> Any:
 
 def get_documents(discovered_ids: list) -> Any:  # type: ignore
     uri = get_uri()
-    client: MongoClient = create_mongo_client(uri)
+    client: MongoClient = create_mongo_client(uri)  # type: ignore
     db = client.movie_data
     movie_collection = db.movie
 
@@ -58,7 +58,7 @@ def get_documents(discovered_ids: list) -> Any:  # type: ignore
 
 def get_documents_API_ID(discovered_ids: list) -> Any:  # type: ignore
     uri = get_uri()
-    client: MongoClient = create_mongo_client(uri)
+    client: MongoClient = create_mongo_client(uri)  # type: ignore
     db = client.movie_data
     movie_collection = db.movie
 
