@@ -19,6 +19,8 @@ jobs:
     env: 
       TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
       TMDB_AUTH_KEY: ${{ secrets.TMDB_AUTH_KEY }}
+      MONGODB_USRNM: ${{ secrets.MONGODB_USRNM }}
+      MONGODB_PASS: ${{ secrets.MONGODB_PASS }}
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.10
