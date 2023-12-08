@@ -22,7 +22,7 @@ def create_mongo_client(uri: str) -> MongoClient:  # type: ignore
     return MongoClient(uri, tlsCAFile=certifi.where())
 
 
-def insert_to_mongo(discover_list: list) -> Any:  # type: ignore
+def insert_to_mongo(discover_list: list) -> Any:
     uri = get_uri()
     client: MongoClient = create_mongo_client(uri)  # type: ignore
 
@@ -45,7 +45,7 @@ def delete_db() -> Any:
     movie.delete_many({})
 
 
-def get_documents(discovered_ids: list) -> Any:  # type: ignore
+def get_documents(discovered_ids: list) -> Any:
     uri = get_uri()
     client: MongoClient = create_mongo_client(uri)  # type: ignore
     db = client.movie_data
@@ -56,7 +56,7 @@ def get_documents(discovered_ids: list) -> Any:  # type: ignore
     return discover_list
 
 
-def get_documents_API_ID(discovered_ids: list) -> Any:  # type: ignore
+def get_documents_API_ID(discovered_ids: list) -> Any:
     uri = get_uri()
     client: MongoClient = create_mongo_client(uri)  # type: ignore
     db = client.movie_data
