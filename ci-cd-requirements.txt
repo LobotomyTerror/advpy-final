@@ -9,3 +9,8 @@ types-flask
 vcrpy
 pyyaml
 python-dotenv
+lxml
+pytest-mock
+Flask-WTF
+tmdbv3api
+gunicorn
