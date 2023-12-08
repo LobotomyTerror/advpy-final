@@ -44,7 +44,7 @@ class test_main(unittest.TestCase):
             uri = ''
             # Purposely not using result just for testing purposes
             create_mongo_client(uri)
-            
+
         except errors.ConfigurationError:
             self.assertRaises(errors.ConfigurationError)
 
